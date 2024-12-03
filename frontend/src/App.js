@@ -1,22 +1,30 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from './redux/authSlice';
 import Home from './components/Home';
 import AdminLogin from './components/AdminLogin';
-import AdminPanel from './components/AdminPanel';
 
 function App() {
-  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      dispatch(
+        loginSuccess({
+          isAdmin: true,
+          token,
+        })
+      );
+    }
+  }, [dispatch]);
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<AdminLogin />} />
-        <Route
-          path="/admin"
-          element={token ? <AdminPanel /> : <Navigate to="/login" replace />}
-        />
       </Routes>
     </Router>
   );

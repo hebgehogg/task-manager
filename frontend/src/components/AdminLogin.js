@@ -1,24 +1,44 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../redux/authSlice';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { loginSuccess } from '../redux/authSlice';
 
 function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isLoading, error, token } = useSelector((state) => state.auth);
-
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    dispatch(login({ username, password })).then((result) => {
-      if (result.meta.requestStatus === 'fulfilled') {
-        navigate('/admin');
+    try {
+      const response = await axios.post('/task_manager/api/login', {
+        username,
+        password,
+      });
+
+      if (response.data.success) {
+        const token = response.data.token;
+
+        localStorage.setItem('token', token);
+
+        dispatch(
+          loginSuccess({
+            isAdmin: true,
+            token,
+          })
+        );
+
+        navigate('/');
+      } else {
+        setError('Invalid credentials');
       }
-    });
+    } catch (err) {
+      setError('Login failed. Please try again.');
+    }
   };
 
   return (
@@ -41,9 +61,7 @@ function AdminLogin() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging in...' : 'Login'}
-        </button>
+        <button type="submit">Login</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>

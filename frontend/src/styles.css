@@ -1,3 +1,4 @@
+/* Общий стиль для страницы */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -22,19 +23,18 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Общий стиль для всей страницы */
+/* Главная страница */
 .home-container {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
-/* Стили для заголовка */
 .home-title {
-  font-size: 2rem;
+  margin-bottom: 20px;
   color: #333;
 }
 
-/* Стили для кнопки */
+/* Кнопка на главной */
 .home-button {
   padding: 10px 20px;
   margin-top: 20px;
@@ -48,4 +48,244 @@ button:hover {
 
 .home-button:hover {
   background-color: #0056b3;
+}
+
+/* Контейнер списка задач */
+.task-list-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.task-list-header {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* Таблица задач */
+.task-list-table {
+  margin: 20px auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-list-table th,
+.task-list-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.task-list-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.task-list-pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0; /* Серый фон для невыбранных кнопок */
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task-list-pagination button:hover {
+  background-color: #d6d6d6; /* Более тёмный серый при наведении */
+}
+
+.task-list-pagination button.active {
+  background-color: #007bff; /* Синий для выбранной страницы */
+  color: white;
+  border: none;
+}
+
+/* Фильтры и сортировка */
+.filters-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: flex-start;
+}
+
+/* Поля ввода */
+.filters-container input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+  max-width: 200px;
+}
+
+/* Выпадающий список фильтров */
+.status-dropdown {
+  position: relative;
+}
+
+.dropdown-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center; /* Выравниваем содержимое кнопки */
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dropdown-button::after {
+  content: '▼'; /* Добавляем стрелку вниз */
+  font-size: 0.8rem;
+  color: white;
+  transform: translateY(1px); /* Подравниваем стрелку */
+}
+
+.dropdown-button:hover {
+  background-color: #0056b3;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 150px;
+}
+
+/* Адаптивность для фильтров */
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filters-container input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .dropdown-button {
+    width: 100%;
+  }
+}
+
+/* Выпадающий список фильтров */
+.status-dropdown {
+  position: relative;
+}
+
+.dropdown-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdown-button:hover {
+  background-color: #0056b3;
+}
+
+.dropdown-menu input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Адаптивность для фильтров */
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filters-container input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .dropdown-button {
+    width: 100%;
+  }
+}
+/* Верхняя полоса */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px; /* Фиксированная высота для правильного центрирования */
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  align-items: center; /* Центрируем элементы по вертикали */
+  justify-content: space-between; /* Заголовок слева, кнопка справа */
+  padding: 0 20px; /* Добавляем одинаковые боковые отступы */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.header-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Кнопка в правом углу */
+.header-button {
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 8px 15px;
+  margin-right: 5vh;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header-button:hover {
+  background-color: #0056b3;
+  color: white;
+  border-color: #0056b3;
+}
+
+/* Адаптивность для верхней полосы */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 10px; /* Уменьшаем боковые отступы для мобильных устройств */
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+
+  .header-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Адаптивность для таблицы */
+@media (max-width: 768px) {
+  .task-list-table th,
+  .task-list-table td {
+    font-size: 0.9rem;
+    padding: 6px;
+  }
 }

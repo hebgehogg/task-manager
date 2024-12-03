@@ -1,20 +1,38 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../redux/authSlice';
+import TaskList from './TaskList';
 import '../styles.css';
 
 function Home() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
-  const goToLogin = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    dispatch(logout());
+  };
+
+  const handleLogin = () => {
     navigate('/login');
   };
 
   return (
-    <div className="home-container">
-      <h1 className="home-title">Home</h1>
-      <button className="home-button" onClick={goToLogin}>
-        Go to Login
-      </button>
+    <div>
+      <header className="header">
+        <span className="header-title">Task Manager</span>
+        <button
+          className="header-button"
+          onClick={isAdmin ? handleLogout : handleLogin}
+        >
+          {isAdmin ? 'Logout' : 'Login'}
+        </button>
+      </header>
+      <div className="home-container">
+        <TaskList isAdmin={isAdmin} />
+      </div>
     </div>
   );
 }
